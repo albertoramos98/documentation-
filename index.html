@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CliMar Application - Technical Documentation</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --background-color: #f4f7f9;
+            --text-color: #34495e;
+            --header-color: #ffffff;
+            --border-color: #e0e5e9;
+            --code-bg-color: #e8ecf0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.7;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            display: flex;
+        }
+
+        nav#table-of-contents {
+            width: 280px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            background-color: var(--header-color);
+            border-right: 1px solid var(--border-color);
+            padding: 2rem 1.5rem;
+            overflow-y: auto;
+            box-sizing: border-box;
+        }
+
+        nav#table-of-contents h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+            font-size: 1.2rem;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.5rem;
+        }
+
+        nav#table-of-contents ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav#table-of-contents ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem 0;
+            font-size: 0.95rem;
+            border-radius: 4px;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        nav#table-of-contents ul li a:hover,
+        nav#table-of-contents ul li a.active {
+            background-color: var(--secondary-color);
+            color: var(--header-color);
+            padding-left: 10px;
+        }
+        
+        main#content {
+            margin-left: 280px;
+            padding: 2rem 3rem;
+            width: calc(100% - 280px);
+            box-sizing: border-box;
+        }
+        
+        .doc-section {
+            margin-bottom: 3.5rem;
+            padding-top: 1rem;
+        }
+
+        h1, h2, h3 {
+            color: var(--primary-color);
+            line-height: 1.3;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            color: #7f8c8d;
+            margin-top: 0;
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.5rem;
+            margin-top: 3rem;
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        p, ul {
+            font-size: 1rem;
+        }
+        
+        ul {
+            padding-left: 20px;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        code {
+            background-color: var(--code-bg-color);
+            padding: 0.2em 0.4em;
+            margin: 0;
+            font-size: 85%;
+            border-radius: 3px;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            body {
+                display: block;
+            }
+            
+            nav#table-of-contents {
+                position: relative;
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+            
+            main#content {
+                margin-left: 0;
+                width: 100%;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav id="table-of-contents">
+        <h3>Table of Contents</h3>
+        <ul>
+            <li><a href="#introduction">1. Introduction</a></li>
+            <li><a href="#architecture">2. Application Architecture</a></li>
+            <li><a href="#frontend">3. Frontend Details</a></li>
+            <li><a href="#backend">4. Backend Details</a></li>
+            <li><a href="#database">5. Database</a></li>
+            <li><a href="#cloud">6. Cloud Infrastructure</a></li>
+            <li><a href="#data-sources">7. External Data Sources</a></li>
+            <li><a href="#testing">9. Testing & CI/CD</a></li>
+            <li><a href="#next-steps">10. Next Steps</a></li>
+        </ul>
+    </nav>
+
+    <main id="content">
+        <header>
+            <h1>CliMar Application</h1>
+            <p class="subtitle">Technical Documentation</p>
+            <p><strong>Authors:</strong> Júlia Albertim, Alberto Ramos, and Pedro Camello</p>
+            <p><strong>Date:</strong> June 18, 2025</p>
+        </header>
+        
+        <section id="introduction" class="doc-section">
+            <h2>1. Introduction</h2>
+            [cite_start]<p>The CliMar application is a web tool developed to provide real-time meteorological and oceanographic information, with projections for new implementations. [cite: 1]</p>
+            [cite_start]<p>This technical document details the application's architecture, the frontend and backend technologies employed, the database structure, cloud service integration, and external data sources. [cite: 2]</p>
+            [cite_start]<p>The objective is to provide an in-depth understanding of the application's internal workings, facilitating future maintenance, development, and scalability. [cite: 3]</p>
+        </section>
+
+        <section id="architecture" class="doc-section">
+            <h2>2. Application Architecture</h2>
+            [cite_start]<p>CliMar's architecture adopts a client-server model, where the frontend (client) interacts with the backend (server) to request and display data. [cite: 4] [cite_start]The backend is responsible for processing requests, interacting with external data sources and the database, and returning formatted information to the frontend. [cite: 5] [cite_start]Communication between the frontend and backend is handled via RESTful Application Programming Interfaces (APIs). [cite: 6]</p>
+            
+            <h3>2.1 Key Components</h3>
+            <ul>
+                [cite_start]<li><strong>Frontend:</strong> The user interface, developed with HTML, CSS, and JavaScript, responsible for data presentation and user interaction. [cite: 7]</li>
+                [cite_start]<li><strong>Backend:</strong> The application's business logic, responsible for managing requests, processing data, and interacting with external services. [cite: 8] [cite_start]It is developed in Python using the Flask framework. [cite: 9]</li>
+                [cite_start]<li><strong>Database:</strong> Stores static and dynamic data, such as tide information and configurations. [cite: 10]</li>
+                [cite_start]<li><strong>External Services/APIs:</strong> Third-party sources for meteorological and oceanographic data. [cite: 11]</li>
+                [cite_start]<li><strong>Cloud Infrastructure:</strong> The hosting and management environment for the application. [cite: 12]</li>
+            </ul>
+        </section>
+
+        <section id="frontend" class="doc-section">
+            <h2>3. Frontend Details</h2>
+            [cite_start]<p>The CliMar frontend is built with standard web technologies, aiming for compatibility and accessibility. [cite: 13] [cite_start]The interface is responsive, adapting to various screen sizes, from desktop computers to mobile devices. [cite: 14]</p>
+
+            <h3>3.1 Technologies Used</h3>
+            <ul>
+                <li><strong>HTML5:</strong> For the semantic structure of the page.</li>
+                [cite_start]<li><strong>CSS3:</strong> For styling and interface layout, including media queries for responsiveness. [cite: 15]</li>
+                [cite_start]<li><strong>JavaScript (ES6+):</strong> For client-side interactive logic, DOM manipulation, asynchronous requests (Fetch API), and library integration. [cite: 16]</li>
+                [cite_start]<li><strong>Leaflet.js:</strong> An open-source JavaScript library for interactive maps. [cite: 17] [cite_start]It is used to display city locations and allow user interaction with the map. [cite: 18]</li>
+                <li><strong>Chart.js:</strong> A JavaScript library for creating charts. [cite_start]It is used to visualize monthly tide data in a clear and interactive way. [cite: 19]</li>
+                [cite_start]<li><strong>Font Awesome:</strong> An icon library to enrich the user interface. [cite: 20]</li>
+            </ul>
+
+            <h3>3.2 Frontend File Structure</h3>
+            <ul>
+                [cite_start]<li><code>templates/index.html</code>: The main frontend file, containing the HTML structure for the tabs (Weather, Tides, Monthly Table), search forms, containers for displaying results, and inclusions for JavaScript and CSS files. [cite: 21]</li>
+                [cite_start]<li><code>templates/login.html</code>: The HTML file responsible for the login page interface. [cite: 22]</li>
+                [cite_start]<li><code>static/</code>: A directory for static files such as images and potentially custom CSS and JS. [cite: 23]</li>
+            </ul>
+
+            <h3>3.3 Interactive Features</h3>
+            <ul>
+                [cite_start]<li><strong>Login Page:</strong> Allows users to access the application via authentication. [cite: 24] [cite_start]The interface includes fields for username and password, and a submission button. [cite: 25] The authentication logic is processed on the backend.</li>
+                [cite_start]<li><strong>Tabbed Navigation:</strong> The <code>showTab()</code> function manages the display of different application sections (Weather, Tides, Monthly Table) by toggling the visibility of the corresponding HTML elements. [cite: 26]</li>
+                [cite_start]<li><strong>Location Search:</strong> Text input forms allow users to type a city name to search for information. [cite: 27] [cite_start]Submitting the form triggers an asynchronous request to the backend. [cite: 28]</li>
+                [cite_start]<li><strong>Map Interaction:</strong> The Leaflet.js map allows users to click on a location to get weather or tide information, sending the latitude and longitude coordinates to the backend. [cite: 29]</li>
+                [cite_start]<li><strong>Data Display:</strong> Data received from the backend is dynamically inserted into the DOM, updating the user interface with weather, tide, and alert information. [cite: 30]</li>
+                [cite_start]<li><strong>Tide Charts:</strong> The Chart.js library is used to render line graphs that visualize tide heights throughout the month in the "Monthly Table" tab. [cite: 31]</li>
+                [cite_start]<li><strong>Visual Alerts:</strong> The flood alert system displays messages and colored icons to indicate the risk level (Low, Medium, High) directly in the weather tab. [cite: 32]</li>
+            </ul>
+        </section>
+
+        <section id="backend" class="doc-section">
+            <h2>4. Backend Details</h2>
+            [cite_start]<p>The CliMar backend is built in Python using the Flask microframework, known for its lightness and flexibility. [cite: 33] [cite_start]It acts as the bridge between the frontend and data sources, processing requests and providing appropriate responses. [cite: 34]</p>
+            
+            <h3>4.1 Technologies Used</h3>
+            <ul>
+                <li><strong>Python 3:</strong> The primary programming language.</li>
+                [cite_start]<li><strong>Flask:</strong> A web microframework for developing RESTful APIs. [cite: 35]</li>
+                [cite_start]<li><strong>Requests:</strong> An HTTP library for making requests to external APIs (OpenWeatherMap, World Weather Online). [cite: 36]</li>
+                [cite_start]<li><strong>JSON:</strong> The data interchange format for communication between frontend and backend, and for storing static data. [cite: 37]</li>
+                [cite_start]<li><strong>Datetime:</strong> A module for handling dates and times, essential for processing tide and weather data. [cite: 38]</li>
+            </ul>
+
+            <h3>4.2 Backend File Structure</h3>
+            <ul>
+                [cite_start]<li><code>app.py</code>: The main backend file, containing route definitions, request processing logic, integration with external APIs, and data manipulation. [cite: 39]</li>
+                [cite_start]<li><code>banco_mareas.json</code>: A JSON file that stores static tide data, serving as a local database for the application. [cite: 40]</li>
+            </ul>
+
+            <h3>4.3 API Routes (Endpoints)</h3>
+            <ul>
+                [cite_start]<li><code>/</code>: The main route that renders <code>index.html</code>. [cite: 41]</li>
+                [cite_start]<li><code>/login</code>: The route for the login page, which renders <code>login.html</code> and processes authentication credentials. [cite: 42]</li>
+                <li><code>/clima</code>: A route to get meteorological data for a city or geographic coordinates. [cite_start]It integrates with the OpenWeatherMap API. [cite: 43]</li>
+                [cite_start]<li><code>/mare</code>: A route to get tide data for a city or geographic coordinates. [cite: 44] [cite_start]It uses data from <code>banco_mareas.json</code> and can be extended to integrate with external tide APIs. [cite: 45]</li>
+                [cite_start]<li><code>/tabua_mes</code>: A new route to get monthly tide data for a city or coordinates. [cite: 46] [cite_start]It processes data from <code>banco_mareas.json</code> to generate a monthly summary. [cite: 47]</li>
+                [cite_start]<li><code>/alertas_alagamento</code>: A new route to analyze flood risk based on weather and tide data. [cite: 48] [cite_start]It returns a risk level (Low, Medium, High) and explanatory messages. [cite: 49]</li>
+            </ul>
+
+            <h3>4.4 Business Logic</h3>
+            <ul>
+                [cite_start]<li><strong>User Authentication:</strong> The <code>/login</code> route on the backend is responsible for validating user-provided credentials. [cite: 50] [cite_start]In a full implementation, this logic would connect to a user database for verification. [cite: 51]</li>
+                [cite_start]<li><strong>Request Processing:</strong> The backend receives GET and POST requests from the frontend, extracts parameters (city, latitude, longitude, date, credentials, etc.), and uses them to fetch the required information. [cite: 52]</li>
+                [cite_start]<li><strong>External API Integration:</strong> Specific functions handle making HTTP calls to weather APIs (OpenWeatherMap) and potentially external tide APIs, processing the responses and extracting relevant data. [cite: 53]</li>
+                [cite_start]<li><strong>Tide Data Manipulation:</strong> The logic for the "Monthly Table" tab involves reading and processing <code>banco_mareas.json</code> to aggregate tide data by day and calculate maximum and minimum heights for the monthly chart. [cite: 54]</li>
+                [cite_start]<li><strong>Flood Risk Analysis:</strong> The <code>analisar_risco_alagamento</code> function is the core of the alert system. [cite: 55] [cite_start]It compares the rain forecast with tide heights (especially critical high tides) to determine the flood risk level, considering predefined thresholds. [cite: 56]</li>
+            </ul>
+        </section>
+
+        <section id="database" class="doc-section">
+            <h2>5. Database</h2>
+            [cite_start]<p>Currently, the application uses a JSON file (<code>banco_mareas.json</code>) as a simplified database to store tide information. [cite: 57] [cite_start]This file contains structured data by city, with tide predictions for different dates and times. [cite: 58]</p>
+            
+            <h3>5.1 Structure of <code>banco_mareas.json</code></h3>
+            [cite_start]<p>The JSON file is an array of objects, where each object represents a tide data entry for a specific city. [cite: 59] Each entry includes:</p>
+            <ul>
+                <li><code>cidade</code>: The name of the city.</li>
+                [cite_start]<li><code>latitude</code>, <code>longitude</code>: The geographic coordinates of the city. [cite: 60]</li>
+                <li><code>mares</code>: An array of objects, where each object represents a day and contains:
+                    <ul>
+                        [cite_start]<li><code>data</code>: The forecast date. [cite: 61]</li>
+                        [cite_start]<li><code>eventos</code>: An array of objects, each describing a tide event (high or low), with <code>hora</code> (time) and <code>altura_m</code> (height in meters). [cite: 62]</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>5.2 Future Considerations</h3>
+            [cite_start]<p>For larger-scale applications or those with more complex data requirements, migrating to a NoSQL database (like MongoDB) would be beneficial. [cite: 63] This would allow for:</p>
+            <ul>
+                <li><strong>Better Data Management:</strong> More efficient queries, indexing, data relationships, aggregations, etc.</li>
+                [cite_start]<li><strong>Scalability:</strong> Support for a larger volume of data and users. [cite: 64]</li>
+                <li><strong>Robust Persistence:</strong> Mechanisms for backup, recovery, and transactions.</li>
+            </ul>
+        </section>
+
+        <section id="cloud" class="doc-section">
+            <h2>6. Cloud Infrastructure</h2>
+            [cite_start]<p>The CliMar application is hosted on the Railway platform. [cite: 65] [cite_start]This setup provides an efficient and scalable development and production environment. [cite: 66]</p>
+
+            <h3>6.1 Railway</h3>
+            [cite_start]<p>Railway is a development and deployment platform that simplifies the process of putting applications into production. [cite: 67] It offers:</p>
+            <ul>
+                [cite_start]<li><strong>Continuous Deployment:</strong> Integration with Git repositories for automatic deployment on every push. [cite: 68]</li>
+                [cite_start]<li><strong>Isolated Environments:</strong> Each project or service runs in an isolated container, ensuring consistency and preventing conflicts. [cite: 69]</li>
+                [cite_start]<li><strong>Scalability:</strong> The ability to scale resources (CPU, RAM) according to application demand. [cite: 70]</li>
+                [cite_start]<li><strong>Environment Variable Management:</strong> Facilitates the configuration of API keys and other sensitive variables. [cite: 71]</li>
+                [cite_start]<li><strong>Custom Domains:</strong> Support for configuring custom domains for the application. [cite: 72]</li>
+            </ul>
+        </section>
+
+        <section id="data-sources" class="doc-section">
+            <h2>7. External Data Sources</h2>
+            [cite_start]<p>The CliMar application relies on external data sources to obtain real-time information. [cite: 73]</p>
+            
+            <h3>7.1 OpenWeatherMap API</h3>
+            <ul>
+                [cite_start]<li><strong>Purpose:</strong> To provide current weather data and forecasts. [cite: 74]</li>
+                <li><strong>Data Obtained:</strong> Temperature, humidity, wind speed, weather description, weather icons, etc.</li>
+                [cite_start]<li><strong>Usage in CliMar:</strong> The <code>/clima</code> route in the backend makes requests to this API, using the city name or geographic coordinates to obtain climate data. [cite: 75]</li>
+            </ul>
+        </section>
+
+        <section id="testing" class="doc-section">
+            <h2>9. Testing and Continuous Integration</h2>
+            [cite_start]<p>The CliMar application incorporates modern development practices, including automated testing and Continuous Integration/Continuous Deployment (CI/CD), to ensure code quality and agility in delivering new features. [cite: 76]</p>
+
+            <h3>9.1 Automated Testing</h3>
+            <ul>
+                [cite_start]<li><strong>Pytest:</strong> A testing framework for Python, used to write and run unit and integration tests for the application's backend. [cite: 77] [cite_start]This ensures that API functions and routes work as expected and that code changes do not introduce regressions. [cite: 78]</li>
+                [cite_start]<li><strong>Bandit:</strong> A static security analysis tool for Python, used to identify common vulnerabilities in the source code. [cite: 79] [cite_start]Running Bandit in the CI/CD pipeline helps ensure the code is secure from the early stages of development. [cite: 80]</li>
+            </ul>
+
+            <h3>9.2 Continuous Integration (CI/CD)</h3>
+            <p>The CI/CD workflow automates the following steps:</p>
+            <ul>
+                [cite_start]<li><strong>Build:</strong> Compiling the code and preparing the execution environment. [cite: 81]</li>
+                [cite_start]<li><strong>Testing:</strong> Automatically running Pytest and Bandit tests on every push or pull request, ensuring that only tested and secure code is integrated. [cite: 82]</li>
+                [cite_start]<li><strong>Deploy:</strong> Automatically deploying the application to Railway after tests pass and the code is merged into the main branch. [cite: 83] [cite_start]This streamlines the delivery process and reduces the chance of manual errors. [cite: 84]</li>
+            </ul>
+        </section>
+
+        <section id="next-steps" class="doc-section">
+            <h2>10. Next Steps and Future Improvements</h2>
+            <ul>
+                [cite_start]<li><strong>Login Page:</strong> Enhance the login page and allow user registration. [cite: 85]</li>
+                <li><strong>Parameters:</strong> Adjust parameters for more assertive calculations.</li>
+                [cite_start]<li><strong>Database Optimization:</strong> Migrate from <code>banco_mareas.json</code> to a more robust database for better management and scalability of tide data. [cite: 86]</li>
+                [cite_start]<li><strong>User Authentication:</strong> Improve the authentication system for personalized features, such as saving favorite locations or preferences, and implement session management. [cite: 87]</li>
+                [cite_start]<li><strong>Notifications:</strong> Add a notification system (email, push) for flood alerts. [cite: 88]</li>
+                [cite_start]<li><strong>Automated Testing:</strong> Develop comprehensive unit and integration tests to ensure code quality and stability. [cite: 89]</li>
+                [cite_start]<li><strong>Monitoring and Logging:</strong> Implement monitoring and logging tools to track application performance and proactively identify issues. [cite: 90]</li>
+                <li><strong>New Features:</strong> Introduce more functions to the application, such as more comprehensive monitoring.</li>
+            </ul>
+        </section>
+
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const links = document.querySelectorAll('nav#table-of-contents a');
+            const sections = document.querySelectorAll('.doc-section');
+
+            // Smooth scrolling for navigation links
+            links.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Highlight active link on scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        links.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === '#' + entry.target.id) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, { rootMargin: '-30% 0px -70% 0px' }); // Adjust rootMargin to trigger highlight at a nice spot
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
