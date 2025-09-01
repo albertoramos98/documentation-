@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apresentação Técnica - Aplicação CliMar</title>
+    <title>Technical Presentation - CliMar Application</title>
     <style>
         :root {
             --primary-color: #2c3e50;
@@ -122,27 +122,27 @@
 
     <div class="container">
         <header>
-            <h1>Apresentação Técnica: CliMar</h1>
-            <p>Recursos Visuais e Exemplos de Implementação</p>
+            <h1>CliMar: A Technical Presentation</h1>
+            <p>Visual Resources & Implementation Examples</p>
         </header>
 
-        <section class="feature-section" id="clima-alerta">
-            <h2>1. Consulta de Clima e Alerta de Alagamento</h2>
+        <section class="feature-section" id="weather-alert">
+            <h2>1. Weather Query & Flood Alert</h2>
             
-            <h3>Recurso Visual</h3>
+            <h3>Visual Resource</h3>
             <div class="visual-resource">
-                <img src="dashboard.jpg" alt="Tela principal da aplicação CliMar com resultado da busca de clima para Recife e alerta de risco.">
+                <img src="image_3d1be0.jpg" alt="Main screen of the CliMar application showing the weather search result for Recife and the risk alert.">
             </div>
 
             <div class="explanation">
-                <p><strong>Explicação da Tela:</strong> A imagem exibe a funcionalidade central da aplicação. Após pesquisar por "Recife", a interface mostra os dados meteorológicos atuais e o sistema de alerta customizado, indicando "Risco de Alagamento: Baixo".</p>
+                <p><strong>Screen Explanation:</strong> This image displays the application's core feature. After searching for "Recife," the interface shows the current weather data and the custom alert system, indicating a "Flood Risk: Low."</p>
             </div>
 
-            <h3>Trechos de Código Relevantes</h3>
+            <h3>Relevant Code Snippets</h3>
             
-            <h4>A. Buscando Dados Externos (app.py)</h4>
-            <p class="code-caption">Este trecho da rota <code>/clima</code> mostra a integração com a API do OpenWeatherMap para buscar dados em tempo real.</p>
-            <pre><code># Rota para obter dados de clima de uma cidade
+            <h4>A. Fetching External Data (app.py)</h4>
+            <p class="code-caption">This snippet from the <code>/clima</code> route shows the integration with the OpenWeatherMap API to fetch real-time data.</p>
+            <pre><code># Route to get weather data for a city
 @app.route('/clima')
 def get_clima():
     cidade = request.args.get('cidade')
@@ -151,59 +151,59 @@ def get_clima():
     url = f"http://api.openweathermap.org/data/2.5/weather?q={cidade}&appid={api_key}&units=metric&lang=pt_br"
 
     try:
-        # Realiza a requisição para a API
+        # Performs the request to the API
         response = requests.get(url)
         response.raise_for_status()
         dados = response.json()
-        # (...) Lógica para processar dados e alertas
+        # (...) Logic to process data and alerts
         return jsonify(resultado)
     except requests.exceptions.RequestException as e:
-        return jsonify({"erro": f"Erro ao acessar a API de clima: {e}"}), 500</code></pre>
+        return jsonify({"erro": f"Error accessing weather API: {e}"}), 500</code></pre>
 
-            <h4>B. Lógica de Negócios do Alerta (app.py)</h4>
-            <p class="code-caption">A função <code>analisar_risco_alagamento</code> implementa a lógica principal do sistema, interpretando os dados para gerar um alerta de risco.</p>
-            <pre><code># Função para analisar o risco de alagamento
+            <h4>B. Alert Business Logic (app.py)</h4>
+            <p class="code-caption">The <code>analisar_risco_alagamento</code> function implements the system's core logic, interpreting data to generate a risk alert.</p>
+            <pre><code># Function to analyze flood risk
 def analisar_risco_alagamento(dados_clima, dados_mare):
     chuva_mm = dados_clima.get('rain', {}).get('1h', 0)
-    mare_atual = dados_mare['eventos'][0]  # Exemplo simplificado
+    mare_atual = dados_mare['eventos'][0]  # Simplified example
 
-    # Limiares para análise de risco
+    # Thresholds for risk analysis
     LIMITE_CHUVA_MEDIA = 10  # mm
     LIMITE_CHUVA_ALTA = 25   # mm
-    LIMITE_MARE_ALTA = 1.8 # metros
+    LIMITE_MARE_ALTA = 1.8 # meters
 
-    # Lógica de decisão
+    # Decision logic
     if chuva_mm > LIMITE_CHUVA_ALTA and mare_atual['altura_m'] > LIMITE_MARE_ALTA:
-        return {"nivel": "Alto", "mensagem": "Risco de alagamento alto..."}
+        return {"nivel": "Alto", "mensagem": "High flood risk..."}
     elif chuva_mm > LIMITE_CHUVA_MEDIA:
-        return {"nivel": "Médio", "mensagem": "Risco de alagamento médio..."}
+        return {"nivel": "Médio", "mensagem": "Medium flood risk..."}
     
-    return {"nivel": "Baixo", "mensagem": "Condições normais, baixo risco..."}</code></pre>
+    return {"nivel": "Baixo", "mensagem": "Normal conditions, low risk..."}</code></pre>
         </section>
 
-        <section class="feature-section" id="tabua-mares">
-            <h2>2. Visualização de Dados: Tábua de Marés</h2>
+        <section class="feature-section" id="tide-table">
+            <h2>2. Data Visualization: Tide Table</h2>
 
-            <h3>Recurso Visual</h3>
+            <h3>Visual Resource</h3>
             <div class="visual-resource">
-                <img src="precisão de alagamentos.jpg" alt="Gráfico da Tábua de Marés Mensal para Recife.">
+                <img src="image_3d1bbd.jpg" alt="Monthly Tide Table chart for Recife.">
             </div>
 
             <div class="explanation">
-                <p><strong>Explicação da Tela:</strong> A aba "Tábua por Mês" renderiza um gráfico de linhas (via Chart.js) que exibe as alturas máximas e mínimas da maré para cada dia, permitindo uma fácil identificação de padrões e picos de maré.</p>
+                <p><strong>Screen Explanation:</strong> The "Monthly Table" tab renders a line chart (via Chart.js) that displays the maximum and minimum tide heights for each day, allowing for easy identification of patterns and tide peaks.</p>
             </div>
 
-            <h3>Trecho de Código Relevante</h3>
-            <h4>Processamento de Dados da Maré (app.py)</h4>
-            <p class="code-caption">A rota <code>/tabua_mes</code> lê o arquivo JSON local, processa os dados e os estrutura para que o frontend possa gerar o gráfico.</p>
-            <pre><code># Rota para obter dados de maré para a tábua do mês
+            <h3>Relevant Code Snippet</h3>
+            <h4>Tide Data Processing (app.py)</h4>
+            <p class="code-caption">The <code>/tabua_mes</code> route reads the local JSON file, processes the data, and structures it for the frontend to generate the chart.</p>
+            <pre><code># Route to get tide data for the monthly table
 @app.route('/tabua_mes')
 def get_tabua_mes():
     cidade = request.args.get('cidade')
     # (...)
     cidade_encontrada = next((item for item in dados_mare_json if item["cidade"].lower() == cidade.lower()), None)
     # (...)
-    # Processa os dados para extrair marés altas e baixas diárias
+    # Process data to extract daily high and low tides
     dados_grafico = {
         "labels": [], "altas": [], "baixas": []
     }
@@ -219,37 +219,37 @@ def get_tabua_mes():
     return jsonify(dados_grafico)</code></pre>
         </section>
 
-        <section class="feature-section" id="testes">
-            <h2>3. Garantia de Qualidade com Testes Automatizados</h2>
+        <section class="feature-section" id="testing">
+            <h2>3. Quality Assurance with Automated Tests</h2>
 
-            <h3>Recurso Visual de Contexto</h3>
+            <h3>Contextual Visual Resource</h3>
             <div class="visual-resource">
-                <img src="dashboard.jpg" alt="Tela da aplicação CliMar mostrando a aba Marés.">
+                <img src="image_3d1b64.jpg" alt="CliMar application screen showing the Tides tab.">
             </div>
             
             <div class="explanation">
-                <p><strong>Explicação:</strong> Para garantir que funcionalidades como a exibição de marés diárias sejam sempre confiáveis, o projeto emprega uma suíte de testes automatizados que verificam o comportamento do backend a cada alteração no código.</p>
+                <p><strong>Explanation:</strong> To ensure that features like the daily tide display are always reliable, the project employs a suite of automated tests that verify the backend's behavior with every code change.</p>
             </div>
 
-            <h3>Trecho de Código Relevante</h3>
-            <h4>Exemplo de Teste Unitário (test_app.py)</h4>
-            <p class="code-caption">Este teste, usando <code>pytest</code>, simula uma chamada à rota <code>/clima</code> e valida se a resposta do servidor está correta, garantindo a estabilidade da API.</p>
-            <pre><code># Teste para a rota /clima com sucesso (usando mock)
+            <h3>Relevant Code Snippet</h3>
+            <h4>Unit Test Example (test_app.py)</h4>
+            <p class="code-caption">This test, using <code>pytest</code>, simulates a call to the <code>/clima</code> route and validates that the server's response is correct, ensuring API stability.</p>
+            <pre><code># Test for the /clima route with a successful outcome (using a mock)
 def test_get_clima_success(client, mocker):
-    # Mock da resposta da API externa para não depender da internet
+    # Mock the external API response to avoid internet dependency
     mock_response = mocker.Mock()
     mock_response.status_code = 200
     mock_response.json.return_value = {
         "name": "Recife",
         "main": {"temp": 27.0},
-        "weather": [{"description": "céu limpo"}]
+        "weather": [{"description": "clear sky"}]
     }
     mocker.patch('requests.get', return_value=mock_response)
     
-    # Executa a requisição de teste
+    # Execute the test request
     response = client.get('/clima?cidade=Recife')
     
-    # Verifica as assertivas (se o resultado está correto)
+    # Check the assertions (if the result is correct)
     assert response.status_code == 200
     data = response.get_json()
     assert data['cidade'] == 'Recife'
